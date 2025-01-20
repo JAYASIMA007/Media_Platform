@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from .forms import UserRegistrationForm
-from .models import UserProfile
+from .models import UserProfile, Post
 
 def register(request):
     if request.method == 'POST':
@@ -21,4 +21,5 @@ def register(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    posts = Post.objects.all()
+    return render(request, 'dashboard.html', {'posts': posts})
